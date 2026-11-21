@@ -1,6 +1,7 @@
 // CLI tests: pure summary/compare functions, plus one live run when Chrome is available.
 import assert from 'node:assert/strict';
-import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -63,6 +64,16 @@ test('summarize subcommand reads saved snippet results', async () => {
     console.log = (x) => out.push(x);
     try { assert.equal(await main(['summarize', f, '--store', dir]), 0); } finally { console.log = log; }
     assert.match(out.join('\n'), /ttfb\s+200 ms/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('the npm-style symlinked command runs and prints through a pipe', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'plm-link-'));
+  try {
+    const link = join(dir, 'page-load-metrics');
+    symlinkSync(new URL('../cli.mjs', import.meta.url).pathname, link);
+    const version = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+    assert.equal(execFileSync(process.execPath, [link, '--version'], { encoding: 'utf8' }).trim(), version);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 

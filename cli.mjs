@@ -3,7 +3,7 @@
 // median of each metric and the change since the last saved run of the same URL.
 // Zero dependencies: Node 22 (built-in WebSocket) talks to Chrome over the DevTools Protocol.
 import { spawn } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -311,7 +311,8 @@ export async function main(argv = process.argv.slice(2)) {
   return 0;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+// npm installs the command as a symlink; compare real paths or the CLI never starts.
+if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href) {
   // Set the exit code instead of calling process.exit(): on macOS a pipe write is
   // asynchronous and exit() dropped the JSON before a reading program got it.
   main().then((code) => { process.exitCode = code; }, (err) => { console.error(`page-load-metrics: ${err.message}`); process.exitCode = 1; });

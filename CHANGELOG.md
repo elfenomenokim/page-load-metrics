@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-21
+
+### Fixed
+
+- The installed `page-load-metrics` command did nothing: npm links it as a symlink and the
+  entry check compared the link path with the module path. It now compares real paths.
+
 ## [0.2.1] - 2026-11-21
 
 ### Fixed
