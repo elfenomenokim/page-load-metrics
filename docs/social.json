@@ -1,0 +1,11 @@
+{
+  "name": "page-load-metrics",
+  "sentence": "A zero-dependency browser snippet that reads page load timing from performance entries and returns one JSON object.",
+  "tag": "JAVASCRIPT · BROWSER SNIPPET",
+  "terminal": [
+    "$ sh docs/demo/run.sh | python3 -c ...",
+    "\"ttfb\": {\"ms\": 8, \"rating\": \"good\"}",
+    "\"dom_content_loaded\": 21, \"load\": 32"
+  ],
+  "flow": ["performance entries", "TTFB FCP LCP CLS blocking", "one rated JSON"]
+}

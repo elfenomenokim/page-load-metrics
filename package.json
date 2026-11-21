@@ -1,0 +1,40 @@
+{
+  "name": "page-load-metrics",
+  "version": "0.2.0",
+  "description": "Measure a page several times in fresh headless Chrome, rate TTFB/FCP/LCP/CLS/blocking, and show the change since the last run. Zero dependencies; the snippet also runs in any browser session.",
+  "type": "module",
+  "files": [
+    "cli.mjs",
+    "page_load_metrics.js"
+  ],
+  "scripts": {
+    "test": "node --test tests/page-load-metrics.test.mjs tests/cli.test.mjs"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elfenomenokim/page-load-metrics"
+  },
+  "keywords": [
+    "web-vitals",
+    "performance",
+    "lcp",
+    "cls",
+    "ttfb",
+    "browser",
+    "snippet",
+    "cli",
+    "headless-chrome",
+    "core-web-vitals"
+  ],
+  "bin": {
+    "page-load-metrics": "cli.mjs"
+  },
+  "homepage": "https://github.com/elfenomenokim/page-load-metrics#readme",
+  "bugs": {
+    "url": "https://github.com/elfenomenokim/page-load-metrics/issues"
+  }
+}

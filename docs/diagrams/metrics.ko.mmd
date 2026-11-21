@@ -1,0 +1,12 @@
+flowchart TD
+    A[페이지 로드, 2초 안정화] --> B[navigation·paint·resource 항목 읽기]
+    B --> C[TTFB, FCP]
+    B --> D[로드/렌더 분리 LCP]
+    B --> E[상위 이동 포함 CLS]
+    B --> F[긴 애니메이션 프레임·롱태스크 기반 블로킹]
+    B --> G[무거운 리소스, 렌더 차단 목록]
+    C --> H[web.dev 등급 포함 JSON 한 개]
+    D --> H
+    E --> H
+    F --> H
+    G --> H

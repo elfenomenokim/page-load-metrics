@@ -1,0 +1,12 @@
+flowchart TD
+    A[load page, wait 2s settle] --> B[read navigation, paint, resource entries]
+    B --> C[TTFB, FCP]
+    B --> D[LCP with load/render split]
+    B --> E[CLS with top shifts]
+    B --> F[blocking from long animation frames or long tasks]
+    B --> G[heaviest resources, render-blocking list]
+    C --> H[one JSON object with web.dev ratings]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
