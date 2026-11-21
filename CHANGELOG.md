@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-21
+
+### Fixed
+
+- Output read through a pipe (`--json` into another program) was empty on macOS: the CLI called
+  `process.exit()` before the asynchronous pipe write finished. It now sets the exit code.
+
 ## [0.2.0] - 2026-11-21
 
 ### Added

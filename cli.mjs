@@ -312,5 +312,7 @@ export async function main(argv = process.argv.slice(2)) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().then((code) => process.exit(code), (err) => { console.error(`page-load-metrics: ${err.message}`); process.exit(1); });
+  // Set the exit code instead of calling process.exit(): on macOS a pipe write is
+  // asynchronous and exit() dropped the JSON before a reading program got it.
+  main().then((code) => { process.exitCode = code; }, (err) => { console.error(`page-load-metrics: ${err.message}`); process.exitCode = 1; });
 }
